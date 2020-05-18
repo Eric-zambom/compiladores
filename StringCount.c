@@ -1,15 +1,15 @@
 #include <stdio.h>
 
 static
-int count_occurrences(const char *haystack, const char *needle)
+int count_occurrences(const char *text, const char *palavraAnalisada)
 {
+       //Não é o melhor algoritmo mas faz o trabalho
     int count = 0;
-    for (int i = 0; haystack[i] != '\0'; i++)
+    for (int i = 0; text[i] != '\0'; i++) // O primeirto for garante a busca em todos os caracteres diponiveis no texto
     {
         int j;
-        for (j = 0; needle[j] != '\0' && needle[j] == haystack[i+j]; j++)
-            ;
-        if (needle[j] == '\0')
+        for (j = 0; palavraAnalisada[j] != '\0' && palavraAnalisada[j] == text[i+j]; j++); //O segundo for garante a comparação com a palavra analisada
+        if (palavraAnalisada[j] == '\0')
             count++;
     }
     return count;
@@ -18,26 +18,31 @@ int count_occurrences(const char *haystack, const char *needle)
 int main(void)
 {
     {
-    const char haystack[] = "house houuse househousehous";
-    const char needle[] = "house";
+    const char text[] = "casa caasa casacasacas";
+    const char palavraAnalisada[] = "casa";
 
-    printf("Haystack <<%s>> vs needle <<%s>> = %d\n",
-           haystack+0, needle+0, count_occurrences(haystack+0, needle+0));
-    printf("Haystack <<%s>> vs needle <<%s>> = %d\n",
-           haystack+1, needle+1, count_occurrences(haystack+1, needle+1));
-    printf("Haystack <<%s>> vs needle <<%s>> = %d\n",
-           haystack+1, needle+0, count_occurrences(haystack+1, needle+0));
-    printf("Haystack <<%s>> vs needle <<%s>> = %d\n",
-           haystack+1, needle+2, count_occurrences(haystack+1, needle+2));
-    printf("Haystack <<%s>> vs needle <<%s>> = %d\n",
-           haystack+6, needle+4, count_occurrences(haystack+6, needle+4));
+    printf("text <<%s>> vs palavraAnalisada <<%s>> = %d\n",
+           text+0, palavraAnalisada+0, count_occurrences(text+0, palavraAnalisada+0));
+    printf("text <<%s>> vs palavraAnalisada <<%s>> = %d\n",
+           text+1, palavraAnalisada+1, count_occurrences(text+1, palavraAnalisada+1));
+    printf("text <<%s>> vs palavraAnalisada <<%s>> = %d\n",
+           text+1, palavraAnalisada+0, count_occurrences(text+1, palavraAnalisada+0));
+    printf("text <<%s>> vs palavraAnalisada <<%s>> = %d\n",
+           text+1, palavraAnalisada+2, count_occurrences(text+1, palavraAnalisada+2));
     }
 
     {
-    char *haystack = "pencil pencil penciil pen penc pe pen55cil penci9llppencil55 pencillip peplic pencilrpencilpe";
-    char *needle = "pencil"; 
-    printf("Haystack <<%s>> vs needle <<%s>> = %d\n",
-           haystack+0, needle+0, count_occurrences(haystack+0, needle+0));
+    char *text = "lapis lapis lapiiis lap lapi la lap55is lapi9ssllapis55 lapislip peplic lapisrlapispe";
+    char *palavraAnalisada = "lapis"; 
+    printf("text <<%s>> vs palavraAnalisada <<%s>> = %d\n",
+           text+0, palavraAnalisada+0, count_occurrences(text+0, palavraAnalisada+0));
+    }
+
+    {
+    char *text = "O papa é pop mas o pop não poupa ninguém.";
+    char *palavraAnalisada = "pop"; 
+    printf("text <<%s>> vs palavraAnalisada <<%s>> = %d\n",
+           text+0, palavraAnalisada+0, count_occurrences(text+0, palavraAnalisada+0));
     }
 
     return 0;
